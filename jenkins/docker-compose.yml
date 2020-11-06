@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  docker-jenkins:
+    networks:
+      - service-cluster
+    restart: always
+    image: jenkins/jenkins:lts
+    container_name: docker-jenkins
+    ports:
+      - "8859:8080"
+      - "50000:50000"
+    volumes:
+      - ./data/:/var/jenkins_home
+      - /var/run/docker.dock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - /usr/lib/x86_64-linux-gnu/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7
+
+networks:
+  service-cluster:
+    external:
+      name: service-cluster
